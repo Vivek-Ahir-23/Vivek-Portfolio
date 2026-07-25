@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 245 40% 6%; /* #0B0914 */
+    --foreground: 0 0% 100%;
+    
+    --card: 245 40% 6%;
+    --card-foreground: 0 0% 100%;
+    
+    --popover: 245 40% 6%;
+    --popover-foreground: 0 0% 100%;
+    
+    --primary: 262 83% 58%; /* #8b5cf6 */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 240 5% 15%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 240 5% 20%;
+    --muted-foreground: 215 20% 65%;
+    
+    --accent: 262 83% 58%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 262 83% 58%;
+
+    --radius: 0.75rem;
+
+    /* Glassmorphism Variables */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+  }
+
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 245 40% 6%;
+    --card: 0 0% 100%;
+    --card-foreground: 245 40% 6%;
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+    --glass-bg: rgba(0, 0, 0, 0.03);
+    --glass-border: rgba(0, 0, 0, 0.1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
+    /* Global Background Pattern */
+    background-image: radial-gradient(circle at top right, rgba(139, 92, 246, 0.15), transparent 40%),
+                      radial-gradient(circle at bottom left, rgba(139, 92, 246, 0.1), transparent 40%);
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  /* Global Glassmorphism */
+  .glass {
+    @apply bg-[var(--glass-bg)] backdrop-blur-md border border-[var(--glass-border)] shadow-xl;
+  }
+  
+  .glass-panel {
+    @apply bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] shadow-2xl rounded-2xl;
+  }
+
+  /* Global Selection Colors */
+  ::selection {
+    @apply bg-primary/30 text-white;
+  }
+
+  /* Global Scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/50 rounded-full hover:bg-primary transition-colors;
+  }
+
+  /* Text Gradients */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-pink-500;
+  }
+}
