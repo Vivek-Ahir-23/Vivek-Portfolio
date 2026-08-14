@@ -49,7 +49,7 @@ export const HeroSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="home"
-      className="relative min-h-screen w-full pt-24 pb-12 lg:pt-28 lg:pb-16 flex items-center justify-center overflow-hidden bg-[#0b0914]"
+      className="relative w-full pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 flex flex-col justify-start overflow-hidden bg-[#0b0914] min-h-fit"
     >
       {/* Background Ambient Radial Glow Effects */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/15 rounded-full blur-[120px] pointer-events-none -z-10" />
