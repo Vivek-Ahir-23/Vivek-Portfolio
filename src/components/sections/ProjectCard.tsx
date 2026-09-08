@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { ProjectItem } from "@/constants/projects";
 import { TechBadge } from "@/components/ui/TechBadge";
+import { useVivekLoader } from "@/context/VivekLoaderContext";
 
 interface ProjectCardProps {
   project: ProjectItem;
@@ -14,6 +15,13 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
+  const router = useRouter();
+  const { triggerRedirect } = useVivekLoader();
+
+  // Prefetch route on mount so 1st click is instant
+  useEffect(() => {
+    router.prefetch(`/projects/${project.id}`);
+  }, [router, project.id]);
   const cardRef = useRef<HTMLDivElement>(null);
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
@@ -40,6 +48,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
     setIsHovered(false);
     setRotateX(0);
     setRotateY(0);
+  };
+
+  const handleRedirect = (e: React.MouseEvent) => {
+    e.preventDefault();
+    triggerRedirect(`/projects/${project.id}`);
   };
 
   const coverImage = project.images[0] || "/projects/we-chat-1.png";
@@ -135,13 +148,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
 
       {/* Redirect Button to Project Details Page */}
       <div style={{ transform: "translateZ(10px)" }} className="pt-4 border-t border-white/10">
-        <Link
-          href={`/projects/${project.id}`}
-          className="w-full py-2.5 px-4 rounded-xl bg-purple-600/20 hover:bg-purple-600 border border-purple-500/40 text-purple-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all duration-300 group/btn shadow-md"
+        <button
+          onClick={handleRedirect}
+          className="w-full py-2.5 px-4 rounded-xl bg-purple-600/20 hover:bg-purple-600 border border-purple-500/40 text-purple-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all duration-300 group/btn shadow-md cursor-pointer"
         >
           <span>View Project Details</span>
           <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
-        </Link>
+        </button>
       </div>
     </motion.div>
   );

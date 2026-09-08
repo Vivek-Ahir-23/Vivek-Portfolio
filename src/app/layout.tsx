@@ -93,6 +93,8 @@ const jsonLd = {
   ],
 };
 
+import { VivekLoaderProvider } from "@/context/VivekLoaderContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -101,6 +103,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
     >
       <head>
@@ -109,10 +112,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-[#0b0914] text-white">
-        <CustomCursor />
-        {children}
-        <Analytics />
+      <body suppressHydrationWarning className="min-h-full flex flex-col bg-[#0b0914] text-white">
+        <VivekLoaderProvider>
+          <CustomCursor />
+          {children}
+          <Analytics />
+        </VivekLoaderProvider>
       </body>
     </html>
   );

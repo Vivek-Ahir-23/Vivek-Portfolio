@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import Link from "next/link";
+import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Building2, Calendar, CheckCircle2, ArrowRight } from "lucide-react";
 import { CertificateItem, CERTIFICATE_ICON_MAP } from "@/constants/certificates";
+import { useVivekLoader } from "@/context/VivekLoaderContext";
 
 interface CertificateCardProps {
   certificate: CertificateItem;
@@ -15,6 +16,13 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
   certificate,
   index,
 }) => {
+  const router = useRouter();
+  const { triggerRedirect } = useVivekLoader();
+
+  // Prefetch route on mount so 1st click is instant
+  useEffect(() => {
+    router.prefetch(`/certificates/${certificate.id}`);
+  }, [router, certificate.id]);
   const cardRef = useRef<HTMLDivElement>(null);
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
@@ -44,6 +52,11 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
     setIsHovered(false);
     setRotateX(0);
     setRotateY(0);
+  };
+
+  const handleRedirect = (e: React.MouseEvent) => {
+    e.preventDefault();
+    triggerRedirect(`/certificates/${certificate.id}`);
   };
 
   return (
@@ -138,14 +151,14 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
           </span>
         </div>
 
-        {/* Dynamic Route Redirect Button */}
-        <Link
-          href={`/certificates/${certificate.id}`}
-          className="w-full py-2.5 px-4 rounded-xl bg-purple-600/20 hover:bg-purple-600 border border-purple-500/40 text-purple-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all duration-300 group/btn shadow-md"
+        {/* Dynamic Route Redirect Button with Vivek Loading Transition */}
+        <button
+          onClick={handleRedirect}
+          className="w-full py-2.5 px-4 rounded-xl bg-purple-600/20 hover:bg-purple-600 border border-purple-500/40 text-purple-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all duration-300 group/btn shadow-md cursor-pointer"
         >
           <span>View Certificates Showcase</span>
           <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
-        </Link>
+        </button>
       </div>
     </motion.div>
   );

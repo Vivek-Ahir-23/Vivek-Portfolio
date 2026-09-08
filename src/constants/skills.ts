@@ -52,7 +52,6 @@ export const SKILL_CATEGORIES_DATA: SkillCategoryGroup[] = [
     description: "Serverless backends, server runtime environments, and RESTful API integrations.",
     color: "from-amber-500 via-orange-500 to-yellow-400",
     skills: [
-      { id: "nodejs", name: "Node.js", category: "backend", categoryName: "Backend", imageSrc: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", color: "from-emerald-500 to-green-600", description: "Asynchronous JavaScript server runtime" },
       { id: "firebase", name: "Firebase", category: "backend", categoryName: "Backend", imageSrc: "/tech/firebase.png", color: "from-amber-400 to-orange-500", description: "Auth, Cloud Functions & Storage" },
       { id: "restapi", name: "REST API", category: "backend", categoryName: "Backend", imageSrc: "/tech/code.png", color: "from-purple-500 to-indigo-500", description: "JSON HTTP endpoints integration" },
     ],

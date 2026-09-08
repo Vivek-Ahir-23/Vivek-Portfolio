@@ -1,13 +1,13 @@
 import React from "react";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { getProjectById, PROJECTS_DATA } from "@/constants/projects";
 import { Container } from "@/components/layout/Container";
 import { Navbar } from "@/components/layout/Navbar";
 import { TechBadge } from "@/components/ui/TechBadge";
 import { ProjectFeaturesShowcase } from "@/components/ui/ProjectFeaturesShowcase";
 import { ProjectScreenshotsGrid } from "@/components/sections/ProjectScreenshotsGrid";
+import { BackButton } from "@/components/ui/BackButton";
 
 interface ProjectDetailPageProps {
   params: Promise<{ id: string }>;
@@ -41,13 +41,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
       <Container className="pt-28 lg:pt-36">
         {/* Back Link */}
         <div className="mb-8">
-          <Link
-            href="/#projects"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-purple-300 hover:text-white px-4 py-2 rounded-xl bg-white/[0.04] border border-white/10 hover:bg-purple-600/20 hover:border-purple-400/40 transition-all duration-200 group"
-          >
-            <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
-            <span>Back to Featured Projects</span>
-          </Link>
+          <BackButton href="/#projects" label="Back to Featured Projects" />
         </div>
 
         {/* Project Header Banner */}

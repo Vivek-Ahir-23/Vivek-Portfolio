@@ -1,11 +1,11 @@
 import React from "react";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { getCertificateById, CERTIFICATES_DATA } from "@/constants/certificates";
 import { Container } from "@/components/layout/Container";
 import { Navbar } from "@/components/layout/Navbar";
 import { CertificateGridShowcase } from "@/components/sections/CertificateGridShowcase";
+import { BackButton } from "@/components/ui/BackButton";
 
 interface CertificateDetailPageProps {
   params: Promise<{ id: string }>;
@@ -37,13 +37,7 @@ export default async function CertificateDetailPage({ params }: CertificateDetai
       <Container className="pt-28 lg:pt-36">
         {/* Back Link */}
         <div className="mb-8">
-          <Link
-            href="/#certificates"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-purple-300 hover:text-white px-4 py-2 rounded-xl bg-white/[0.04] border border-white/10 hover:bg-purple-600/20 hover:border-purple-400/40 transition-all duration-200 group"
-          >
-            <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
-            <span>Back to Certificates Section</span>
-          </Link>
+          <BackButton href="/#certificates" label="Back to Certificates Section" />
         </div>
 
         {/* Certificate Header Banner */}

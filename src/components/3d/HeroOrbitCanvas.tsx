@@ -137,3 +137,5 @@ export const HeroOrbitCanvas: React.FC = () => {
     </WebGLErrorBoundary>
   );
 };
+
+export default HeroOrbitCanvas;

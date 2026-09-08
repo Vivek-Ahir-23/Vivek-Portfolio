@@ -4,6 +4,7 @@ import React from "react";
 import { Mail, PhoneCall } from "lucide-react";
 import { IconButton } from "@/components/ui/IconButton";
 import { cn } from "@/utils/cn";
+import { useVivekLoader } from "@/context/VivekLoaderContext";
 
 export interface SocialLinksProps {
   githubUrl?: string;
@@ -20,6 +21,15 @@ export const SocialLinks: React.FC<SocialLinksProps> = ({
   emailUrl = "mailto:shyaravivek2307@gmail.com",
   className,
 }) => {
+  const { triggerRedirect } = useVivekLoader();
+
+  const handleSocialClick = (e: React.MouseEvent, link: { name: string; href: string }) => {
+    e.preventDefault();
+    triggerRedirect(link.href, {
+      target: "_blank",
+    });
+  };
+
   const links = [
     {
       name: "WhatsApp",
@@ -61,15 +71,14 @@ export const SocialLinks: React.FC<SocialLinksProps> = ({
         <a
           key={link.name}
           href={link.href}
-          target="_blank"
-          rel="noopener noreferrer"
+          onClick={(e) => handleSocialClick(e, link)}
           aria-label={link.name}
         >
           <IconButton
             ariaLabel={link.name}
             size="md"
             variant="glass"
-            className="hover:border-violet-500/50 hover:bg-violet-600/20 text-zinc-300 hover:text-white"
+            className="hover:border-violet-500/50 hover:bg-violet-600/20 text-zinc-300 hover:text-white cursor-pointer"
           >
             {link.icon}
           </IconButton>

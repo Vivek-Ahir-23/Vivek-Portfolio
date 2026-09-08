@@ -8,6 +8,8 @@ import dynamic from "next/dynamic";
 import { Container } from "@/components/layout/Container";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { HeroProfileCard } from "@/components/ui/HeroProfileCard";
+import { SkillsMarqueeTicker } from "@/components/ui/SkillsMarqueeTicker";
 
 const HeroOrbitCanvas = dynamic(
   () => import("@/components/3d/HeroOrbitCanvas").then((mod) => mod.HeroOrbitCanvas),
@@ -126,11 +128,9 @@ export const HeroSection: React.FC = () => {
                 </Button>
               </a>
             </motion.div>
-
-
           </motion.div>
 
-          {/* Right Column: 3D Scene + Portrait + Availability Card */}
+          {/* Right Column: 3D WebGL Scene + Interactive Cyber Profile Card */}
           <motion.div
             className="lg:col-span-5 relative flex items-center justify-center overflow-visible"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -142,48 +142,23 @@ export const HeroSection: React.FC = () => {
               <HeroOrbitCanvas />
             </div>
 
-            {/* Developer Portrait Container */}
-            <div className="relative z-10 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-2 border-violet-500/40 shadow-[0_0_50px_rgba(139,92,246,0.35)] backdrop-blur-sm group">
-              <Image
-                src="/hero-profile.png"
-                alt="Shyara Vivek - Flutter Developer"
-                fill
-                priority
-                unoptimized
-                sizes="(max-width: 768px) 256px, 384px"
-                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0b0914]/80 via-transparent to-transparent" />
+            {/* Interactive 3D Cyber Profile Card */}
+            <div className="relative z-10 w-full flex items-center justify-center">
+              <HeroProfileCard />
             </div>
-
-            {/* Floating Status / Open To Work Glass Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="absolute -bottom-4 right-0 sm:right-4 z-20 p-4 rounded-2xl bg-[#0b0914]/85 backdrop-blur-xl border border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.6)] flex flex-col gap-2 max-w-[220px]"
-            >
-              <div className="flex items-center gap-2">
-                <span className="relative flex h-2.5 w-2.5 shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
-                </span>
-                <span className="text-xs font-medium text-zinc-200">
-                  Available for new opportunities
-                </span>
-              </div>
-
-              <a
-                href="mailto:shyaravivek2307@gmail.com"
-                className="inline-flex items-center justify-between px-3 py-1.5 rounded-xl bg-violet-600/20 border border-violet-500/40 text-xs font-semibold text-violet-300 hover:bg-violet-600/40 hover:text-white transition-all duration-300"
-              >
-                <span>Open to Work</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
-            </motion.div>
           </motion.div>
 
         </div>
+
+        {/* Infinite Horizontal Skills Navigation Marquee Ticker (Right-to-Left, Down Side of Profile Image) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="w-full mt-24 sm:mt-28 lg:mt-32"
+        >
+          <SkillsMarqueeTicker />
+        </motion.div>
       </Container>
     </section>
   );
